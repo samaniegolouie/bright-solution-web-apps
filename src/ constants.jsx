@@ -208,7 +208,8 @@ export const pillars = [
         id: 3,
         title: "Leveled Reports",
         description: "",
-        items: leveledReports,
+        // items: leveledReports,
+        items: [],
       },
       {
         id: 4,
@@ -222,10 +223,13 @@ export const pillars = [
       },
       {
         id: 5,
-        title: "Data Strategy Playbook",
-        description:
-          "A practical roadmap for data governance, quality, and interoperability to enable AI at scale.",
+        title: "",
+        description: "",
         img: dataStrategy,
+        // title: "Data Strategy Playbook",
+        // description:
+        //   "A practical roadmap for data governance, quality, and interoperability to enable AI at scale.",
+        // img: dataStrategy,
         href: "",
         type: "",
         items: [],
@@ -242,7 +246,7 @@ export const pillars = [
       },
       {
         id: 7,
-        title: "Innovative Lab",
+        title: "Innovation Lab",
         description:
           "A sandbox to pilot solutions, test assumptions, and accelerate adoption with real‑world feedback loops.",
         img: innovativeLab,

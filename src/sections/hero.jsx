@@ -18,12 +18,12 @@ export default function Hero() {
           className="flex flex-col items-center"
         >
           <div className="px-3 py-1.5 text-xs sm:text-sm text-crimson-1200 bg-white rounded-full my-4">
-            Bright Solutions • Generative AI
+            Bright Solutions AI Toolkit
           </div>
 
           <div className="flex flex-col gap-3 items-center text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold">
-              Change to Senior Living Generative AI Toolkit
+              Senior Living AI Toolkit
             </h1>
             <h2 className="text-sm sm:text-base md:text-xl max-w-md sm:max-w-lg md:max-w-2xl">
               Your hub for responsible, scalable, human‑centered AI adoption.
@@ -62,7 +62,7 @@ export default function Hero() {
             onClick={() => console.log("clicked")}
             color="crimson"
           >
-            Start with AI Readiness
+            Take the assessment
           </Button>
           <Button
             className="h-12"

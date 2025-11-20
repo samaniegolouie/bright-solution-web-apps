@@ -9,6 +9,7 @@ import Button from "./components/button";
 import Modal from "./components/modal";
 import Assessment from "./sections/assessment";
 import { ChevronDown } from "lucide-react";
+import Footer from "./sections/footer";
 
 function App() {
   const [filters, setFilters] = useState({
@@ -212,7 +213,7 @@ function App() {
                                         onClick={() => setOpenModal(true)}
                                         color="crimson"
                                       >
-                                        Start with AI Readiness
+                                        Take the assessment
                                       </Button>
                                     </div>
                                   )}
@@ -273,7 +274,7 @@ function App() {
                           </div>
                         )}
 
-                        {pillar?.id === 3 && (
+                        {/* {pillar?.id === 3 && (
                           <div
                             className={`-mt-12 p-4 border-2 rounded-xl shadow-sm ${
                               expandedAccordion ? "" : "hover:bg-gray-100"
@@ -310,9 +311,9 @@ function App() {
                                     duration: 0.3,
                                     ease: "easeOut",
                                   }}
-                                  className="flex flex-col sm:flex-row "
+                                  className="flex flex-col sm:flex-row"
                                 >
-                                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full">
                                     {filteredSubcontents?.map((subcontent) => {
                                       return (
                                         <Card
@@ -347,7 +348,7 @@ function App() {
                               </AnimatePresence>
                             )}
                           </div>
-                        )}
+                        )} */}
                       </div>
                     </motion.div>
                   </AnimatePresence>
@@ -363,9 +364,7 @@ function App() {
         </Modal>
       )}
 
-      <div className="flex flex-col items-center justify-center bg-[#6B0000] text-white py-10">
-        <p className="text-lg">Bright Solutions • Generative AI Toolkit</p>
-      </div>
+      <Footer />
     </div>
   );
 }
