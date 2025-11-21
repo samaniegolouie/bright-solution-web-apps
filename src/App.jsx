@@ -1,7 +1,7 @@
 import "./App.css";
 import Hero from "./sections/hero";
 import Filters from "./sections/filters";
-import { pillars } from "./ constants";
+import { pillars } from "./constants";
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import Card from "./components/card";
@@ -275,8 +275,8 @@ function App() {
                             })}
                           </div>
                         )}
-
-                        {/* {pillar?.id === 3 && (
+                        {/* 
+                        {pillar?.id === 3 && (
                           <div
                             className={`-mt-12 p-4 border-2 rounded-xl shadow-sm ${
                               expandedAccordion ? "" : "hover:bg-gray-100"
