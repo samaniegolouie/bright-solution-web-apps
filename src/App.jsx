@@ -8,9 +8,7 @@ import Card from "./components/card";
 import Button from "./components/button";
 import Modal from "./components/modal";
 import Assessment from "./sections/assessment";
-import { ChevronDown } from "lucide-react";
 import Footer from "./sections/footer";
-import Testimonial from "./components/testimonial";
 import Testimonials from "./sections/testimonials";
 
 function App() {
