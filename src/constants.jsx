@@ -66,7 +66,7 @@ export const generativeAiToolkit = [
     title: "Where to Begin: White Paper",
     description: "Foundational overview of readiness & ethical guardrails.",
     label: "Open",
-    url: "#1",
+    url: "https://drive.google.com/file/d/10Qjb4Z0uEjBiFwm-reM-s1vxa7zzWzb6/view",
     icon: Compass,
   },
   {
@@ -216,16 +216,16 @@ export const pillars = [
         description: "",
         items: leveledReports,
       },
-      {
-        id: 4,
-        title: "Platform Excellence Committees",
-        description:
-          "Define cross‑functional roles and rituals to sustain innovation momentum and governance.",
-        img: crossFunctionalRoles,
-        href: "",
-        type: "",
-        items: [],
-      },
+      // {
+      //   id: 4,
+      //   title: "Platform Excellence Committees",
+      //   description:
+      //     "Define cross‑functional roles and rituals to sustain innovation momentum and governance.",
+      //   img: crossFunctionalRoles,
+      //   href: "",
+      //   type: "",
+      //   items: [],
+      // },
       // {
       //   id: 5,
       //   title: "",
@@ -239,16 +239,16 @@ export const pillars = [
       //   type: "",
       //   items: [],
       // },
-      {
-        id: 6,
-        title: "Innovation Engine",
-        description:
-          "Bright Solutions’ methodology for moving from pilots to scalable, measurable outcomes across sites.",
-        img: innovativeEngine,
-        href: "",
-        type: "",
-        items: [],
-      },
+      // {
+      //   id: 6,
+      //   title: "Innovation Engine",
+      //   description:
+      //     "Bright Solutions’ methodology for moving from pilots to scalable, measurable outcomes across sites.",
+      //   img: innovativeEngine,
+      //   href: "",
+      //   type: "",
+      //   items: [],
+      // },
       {
         id: 7,
         title: "Innovation Lab",

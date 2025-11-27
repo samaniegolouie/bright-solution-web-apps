@@ -230,6 +230,8 @@ function App() {
                                           >
                                             <a
                                               href={item.url}
+                                              target="_blank"
+                                              rel="noopener noreferrer"
                                               className="font-semibold text-red-700 hover:underline"
                                             >
                                               {item?.label}
@@ -264,6 +266,8 @@ function App() {
                                 >
                                   <a
                                     href={subcontent.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="font-semibold text-red-700 hover:underline"
                                   >
                                     {subcontent.label}
