@@ -27,7 +27,7 @@ export default function Assessment({ setOpenModal }) {
       return;
     }
 
-    console.log("Grades:", grades);
+    // console.log("Grades:", grades);
 
     // Calculate average
     const avg =
@@ -76,13 +76,13 @@ export default function Assessment({ setOpenModal }) {
   }, [asssessmentForm]);
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-xl w-full">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-red-900">
+    <div className="bg-white p-6 rounded-xl shadow-xl w-full text-gray-700 ">
+      <div className="flex items-center justify-between mb-4 ">
+        <h2 className="text-lg font-bold text-red-900 lg:text-xl">
           Innovation & AI Readiness Assessment
         </h2>
         <Button
-          className="h-7  text-white"
+          className="h-7 text-white"
           onClick={setOpenModal.bind(this, false)}
           color="crimson"
         >

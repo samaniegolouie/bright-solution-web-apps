@@ -10,6 +10,7 @@ import Modal from "./components/modal";
 import Assessment from "./sections/assessment";
 import Footer from "./sections/footer";
 import Testimonials from "./sections/testimonials";
+import { useRef } from "react";
 
 function App() {
   const [filters, setFilters] = useState({
@@ -22,14 +23,14 @@ function App() {
   const [expandedAccordion, setExpandedAccordion] = useState(false);
 
   // Accordion on click handler
-  const handleAccordionClick = () => {
-    setExpandedAccordion(!expandedAccordion);
-  };
+  // const handleAccordionClick = () => {
+  //   setExpandedAccordion(!expandedAccordion);
+  // };
 
-  useEffect(() => {
-    console.clear();
-    console.log("Accordion is expanded: ", expandedAccordion);
-  }, [expandedAccordion]);
+  // useEffect(() => {
+  //   console.clear();
+  //   console.log("Accordion is expanded: ", expandedAccordion);
+  // }, [expandedAccordion]);
 
   // Check if any filter is active
   const hasActiveFilters =
@@ -128,9 +129,15 @@ function App() {
     };
   }, [openModal]);
 
+  const sectionRef = useRef(null);
+
+  const scrollToSection = () => {
+    sectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div>
-      <Hero />
+      <Hero onScrollToSection={scrollToSection} />
       <div>
         <Testimonials />
         <Filters
@@ -195,18 +202,18 @@ function App() {
                                   key={subcontent.id}
                                   title={subcontent.title}
                                   description={subcontent.description}
-                                  
                                 >
                                   {subcontent.img && (
                                     <div className="rounded-xl flex items-center justify-center shadow-lg overflow-hidden">
                                       <img
                                         src={subcontent.img}
                                         alt={subcontent.title}
-                                        
-                                        className="hover:scale-110 hover:transition-all hover:duration-300 p-6 w-6/12 rounded-lg"
+                                        className={`${
+                                          subcontent.id === 1
+                                            ? "w-full"
+                                            : "w-5/12"
+                                        } hover:scale-110 hover:transition-all hover:duration-300 p-6 rounded-lg`}
                                       />
-                                      
-                                      
                                     </div>
                                   )}
 
@@ -251,7 +258,10 @@ function App() {
                         )}
 
                         {pillar?.id === 2 && (
-                          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                          <div
+                            className="grid grid-cols-1 lg:grid-cols-3 gap-4"
+                            ref={sectionRef}
+                          >
                             {filteredSubcontents?.map((subcontent) => {
                               return (
                                 <Card
