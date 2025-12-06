@@ -11,8 +11,15 @@ import Assessment from "./sections/assessment";
 import Footer from "./sections/footer";
 import Testimonials from "./sections/testimonials";
 import { useRef } from "react";
+import Maintenance from "./components/maintinance";
 
 function App() {
+   const isMaintenance = true;
+
+  if (isMaintenance) {
+    return <Maintenance />;
+  }
+  
   const [filters, setFilters] = useState({
     search: "",
     pillar: "",
