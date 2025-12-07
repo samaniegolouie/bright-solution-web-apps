@@ -14,7 +14,7 @@ import { useRef } from "react";
 import Maintenance from "./components/maintinance";
 
 function App() {
-   const isMaintenance = true;
+   const isMaintenance = false;
 
   if (isMaintenance) {
     return <Maintenance />;
