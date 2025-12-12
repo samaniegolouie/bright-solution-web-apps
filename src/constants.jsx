@@ -289,7 +289,7 @@ export const assessmentQuestions = [
       {
         id: 4,
         grade: 4,
-        text: "D. Integrated platfrms, data driven decisions",
+        text: "D. Integrated platforms, data driven decisions",
       },
       { id: 5, grade: 5, text: "E. Fully integrated tech + real-time data" },
     ],
@@ -301,7 +301,7 @@ export const assessmentQuestions = [
       { id: 1, grade: 1, text: "A. Little AI knowledge" },
       { id: 2, grade: 2, text: "B. Interested but no formal plan" },
       { id: 3, grade: 3, text: "C. AI vision + leadership buy-in" },
-      { id: 4, grade: 4, text: "D. Actively pilotong AI use-cases" },
+      { id: 4, grade: 4, text: "D. Actively piloting AI use-cases" },
       { id: 5, grade: 5, text: "E. Rolling out multiple AI org-wide" },
     ],
   },
@@ -311,7 +311,7 @@ export const assessmentQuestions = [
     options: [
       { id: 1, grade: 1, text: "A. No rules / data standards" },
       { id: 2, grade: 2, text: "B. Informal procedures (early stage)" },
-      { id: 3, grade: 3, text: "C. Guard trails / formal framework" },
+      { id: 3, grade: 3, text: "C. Guard rails / formal framework" },
       { id: 4, grade: 4, text: "D. Robust evolving framework" },
       { id: 5, grade: 5, text: "E. Large, secure data hub + AI-ready" },
     ],
