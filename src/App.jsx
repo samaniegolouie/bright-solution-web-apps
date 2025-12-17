@@ -146,6 +146,7 @@ function App() {
   
 
   return (
+    
     <div>
       <Hero onScrollToSection={scrollToSection} />
       <div>
@@ -399,6 +400,25 @@ function App() {
           </div>
         </div>
       </div>
+      {/* 🔴 FLOATING FEEDBACK WIDGET */}
+      <div className="fixed top-1/2 right-0 -translate-y-1/2 z-50">
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSeVs_cqrQuqrrjuL-6O-AbnF9RHCvt3Z3B_HIG2lNDTO_I4aQ/viewform?pli=1"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-crimson-900 hover:bg-crimson-1000
+                     text-white text-sm font-medium
+                     px-3 py-2
+                     rounded-l-lg
+                     shadow-lg
+                     flex items-center justify-center"
+          style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+        >
+          Feedback
+        </a>
+      </div>
+      
+      
       {openModal && (
         <Modal>
           <Assessment setOpenModal={() => setOpenModal(false)} />
