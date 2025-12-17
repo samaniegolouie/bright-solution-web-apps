@@ -1,24 +1,54 @@
 import { useEffect, useState } from "react";
 import Papa from "papaparse";
 
-// 1. Import the avatar assets
+// Avatar assets
 import female1 from "./assets/female1.svg";
 import female2 from "./assets/female2.svg";
 import male1 from "./assets/male1.svg";
 import male2 from "./assets/male2.svg";
 
-// 2. Define the array of available avatars outside the function
-const AVATAR_POOL = [
-  female1,
-  female2,
-  male1,
-  male2,
-];
+// Fixed avatar mapping (MATCHES normalized values)
+const AVATAR_BY_TITLE = {
+  ms: female1,
+  mrs: female2,
+  mr: male1,
+  dr: male2,
+};
 
-// Helper function to pick a random avatar path
+// Avatar pool (random fallback for unknown titles)
+const AVATAR_POOL = [female1, female2, male1, male2];
+
+// Random avatar helper
 const getRandomAvatar = () => {
   const randomIndex = Math.floor(Math.random() * AVATAR_POOL.length);
   return AVATAR_POOL[randomIndex];
+};
+
+// Avatar selector (STATIC if matched, RANDOM if not)
+const getAvatarByTitle = (title) => {
+  // Empty title → random avatar
+  if (!title) {
+    console.log("NO TITLE → RANDOM AVATAR");
+    return getRandomAvatar();
+  }
+
+  const normalized = String(title)
+    .trim()
+    .toLowerCase()
+    .replace(/\./g, "")
+    .split(" ")[0];
+
+  console.log("TITLE:", title, "→ NORMALIZED:", normalized);
+  console.log("AVATAR FOUND:", AVATAR_BY_TITLE[normalized]);
+
+  // Known title → static avatar
+  if (AVATAR_BY_TITLE[normalized]) {
+    return AVATAR_BY_TITLE[normalized];
+  }
+
+  // Unknown title → random avatar
+  console.log("UNKNOWN TITLE → RANDOM AVATAR");
+  return getRandomAvatar();
 };
 
 export function useTestimonials() {
@@ -33,12 +63,24 @@ export function useTestimonials() {
       header: true,
       skipEmptyLines: true,
       complete: (results) => {
-        // Find the key for permission dynamically to avoid newline/space issues
-        const allKeys = results.data.length > 0 ? Object.keys(results.data[0]) : [];
-        const permissionKey = allKeys.find(k => k.includes("PERMISSION TO SHARE FEEDBACK"));
-        const usabilityKey = allKeys.find(k => k.includes("USABILITY AND PERFORMANCE"));
-        const usageKey = allKeys.find(k => k.includes("USAGE FEEDBACK"));
-        const ratingKey = allKeys.find(k => k.includes("Overall usability and performance experience"));
+        const allKeys =
+          results.data.length > 0 ? Object.keys(results.data[0]) : [];
+
+        const permissionKey = allKeys.find((k) =>
+          k.toLowerCase().includes("permission")
+        );
+        const usabilityKey = allKeys.find((k) =>
+          k.toLowerCase().includes("usability")
+        );
+        const usageKey = allKeys.find((k) =>
+          k.toLowerCase().includes("usage")
+        );
+        const userTitleKey = allKeys.find((k) =>
+          k.toLowerCase().includes("addressed")
+        );
+        const ratingKey = allKeys.find((k) =>
+          k.toLowerCase().includes("overall usability")
+        );
 
         const mapped = results.data
           .filter((row) => {
@@ -48,18 +90,17 @@ export function useTestimonials() {
           .map((row, index) => ({
             id: index + 1,
             name: row["Name"]?.trim() || "Anonymous",
-            // 3. Use the getRandomAvatar function here
-            avatar: getRandomAvatar(),
-            // Use unary plus or Number() and handle the specific key
+
+            // ✅ FINAL avatar logic
+            avatar: getAvatarByTitle(row[userTitleKey]),
+
             rating: Number(row[ratingKey]) || 5,
-            message: [
-              row[usabilityKey],
-              row[usageKey],
-            ]
+            message: [row[usabilityKey], row[usageKey]]
               .filter(Boolean)
               .join(", "),
           }));
 
+        console.log("FINAL MAPPED TESTIMONIALS:", mapped);
         setData(mapped);
       },
       error: (err) => console.error("CSV ERROR:", err),
