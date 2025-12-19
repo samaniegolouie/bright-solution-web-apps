@@ -67,19 +67,23 @@ export function useTestimonials() {
           results.data.length > 0 ? Object.keys(results.data[0]) : [];
 
         const permissionKey = allKeys.find((k) =>
-          k.toLowerCase().includes("permission")
+          k.toLowerCase().includes("permission") 
         );
-        const usabilityKey = allKeys.find((k) =>
-          k.toLowerCase().includes("usability")
-        );
-        const usageKey = allKeys.find((k) =>
-          k.toLowerCase().includes("usage")
-        );
+        // const usabilityKey = allKeys.find((k) =>
+        //   k.toLowerCase().includes("usability")
+        // );
+        // const usageKey = allKeys.find((k) =>
+        //   k.toLowerCase().includes("usage")
+        // );
+        const commentKey = allKeys.find((k) =>
+  k.toLowerCase().includes("comment on the value")
+);
+
         const userTitleKey = allKeys.find((k) =>
-          k.toLowerCase().includes("addressed")
+          k.toLowerCase().includes("addressed") ///mr.ms.mrs.other
         );
         const ratingKey = allKeys.find((k) =>
-          k.toLowerCase().includes("overall usability")
+          k.toLowerCase().includes("how likely are you to recommend") // Rating (Column C) 
         );
 
         const mapped = results.data
@@ -95,10 +99,12 @@ export function useTestimonials() {
             avatar: getAvatarByTitle(row[userTitleKey]),
 
             rating: Number(row[ratingKey]) || 5,
-            message: [row[usabilityKey], row[usageKey]]
-              .filter(Boolean)
-              .join(", "),
-          }));
+          //   message: [row[usabilityKey], row[usageKey]]
+          //     .filter(Boolean)
+          //     .join(", "),
+          // }));
+              message: row[commentKey]?.trim() || "",
+  }));
 
         console.log("FINAL MAPPED TESTIMONIALS:", mapped);
         setData(mapped);
