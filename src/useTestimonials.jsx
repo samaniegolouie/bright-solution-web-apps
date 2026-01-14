@@ -4,19 +4,19 @@ import Papa from "papaparse";
 // Avatar assets
 import female1 from "./assets/female1.svg";
 import female2 from "./assets/female2.svg";
-import male1 from "./assets/male1.svg";
+import male3 from "./assets/male3.svg";
 import male2 from "./assets/male2.svg";
 
 // Fixed avatar mapping (MATCHES normalized values)
 const AVATAR_BY_TITLE = {
   ms: female1,
   mrs: female2,
-  mr: male1,
+  mr: male3,
   dr: male2,
 };
 
 // Avatar pool (random fallback for unknown titles)
-const AVATAR_POOL = [female1, female2, male1, male2];
+const AVATAR_POOL = [female1, female2, male3, male2];
 
 // Random avatar helper
 const getRandomAvatar = () => {
