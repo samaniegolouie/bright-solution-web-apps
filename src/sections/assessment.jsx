@@ -5,9 +5,8 @@ import Input from "../components/input";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import Confetti from "react-confetti-boom";
-import { logDownloadClick } from "../downloadLogger";
 
-export default function Assessment({ setOpenModal }) {
+export default function Assessment({ setOpenModal, requestDownload }) {
   const [result, setResult] = useState(null);
 
   const [asssessmentForm, setAsssessmentForm] = useState(
@@ -88,6 +87,22 @@ export default function Assessment({ setOpenModal }) {
           : item
       )
     );
+  };
+
+  const handleResultDownloadClick = (event) => {
+    event.preventDefault();
+
+    const download = {
+      filename: result.fileName,
+      source: "Assessment Result",
+      url: result.fileUrl,
+    };
+
+    if (import.meta.env.DEV) {
+      console.log("[downloadGate] Assessment download click received", download);
+    }
+
+    requestDownload(download);
   };
 
   useEffect(() => {
@@ -176,12 +191,7 @@ export default function Assessment({ setOpenModal }) {
                                     href={result.fileUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    onClick={() =>
-                                      logDownloadClick({
-                                        filename: result.fileName,
-                                        source: "Assessment Result",
-                                      })
-                                    }
+                                    onClick={handleResultDownloadClick}
                                     className="font-semibold text-red-700 hover:underline mt-3"
                                   >
                                   Download file

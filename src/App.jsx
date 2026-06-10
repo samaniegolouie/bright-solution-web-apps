@@ -11,16 +11,12 @@ import Assessment from "./sections/assessment";
 import Footer from "./sections/footer";
 import Testimonials from "./sections/testimonials";
 import Maintenance from "./components/maintinance";
-import { logDownloadClick } from "./downloadLogger";
+import EmailGateModal from "./components/emailGateModal";
+import { useDownloadGate } from "./useDownloadGate";
 // import { useTestimonials } from "./useTestimonials";
 
 function App() {
   const isMaintenance = false;
-
-  if (isMaintenance) {
-    return <Maintenance />;
-  }
-
   const [filters, setFilters] = useState({
     search: "",
     pillar: "",
@@ -30,6 +26,8 @@ function App() {
   const [openModal, setOpenModal] = useState(false);
   const [expandedAccordion, setExpandedAccordion] = useState(false);
   const sectionRef = useRef(null);
+  const { hasPendingDownload, requestDownload, submitDownloadEmail } =
+    useDownloadGate();
 
   // Accordion on click handler (kept for reference)
   // const handleAccordionClick = () => {
@@ -111,7 +109,7 @@ function App() {
 
   // Prevent user from scrolling in background while modal is visible
   useEffect(() => {
-    if (openModal) {
+    if (openModal || hasPendingDownload) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -119,11 +117,25 @@ function App() {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [openModal]);
+  }, [openModal, hasPendingDownload]);
 
   const scrollToSection = () => {
     sectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  const handleDownloadClick = (event, download) => {
+    event.preventDefault();
+
+    if (import.meta.env.DEV) {
+      console.log("[downloadGate] App download click received", download);
+    }
+
+    requestDownload(download);
+  };
+
+  if (isMaintenance) {
+    return <Maintenance />;
+  }
 
   return (
     <div>
@@ -248,10 +260,11 @@ function App() {
                                               href={item.url}
                                               target="_blank"
                                               rel="noopener noreferrer"
-                                              onClick={() =>
-                                                logDownloadClick({
+                                              onClick={(event) =>
+                                                handleDownloadClick(event, {
                                                   filename: item?.title,
                                                   source: subcontent?.title,
+                                                  url: item?.url,
                                                 })
                                               }
                                               className="font-semibold text-red-700 hover:underline"
@@ -293,10 +306,11 @@ function App() {
                                     href={subcontent.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    onClick={() =>
-                                      logDownloadClick({
+                                    onClick={(event) =>
+                                      handleDownloadClick(event, {
                                         filename: subcontent?.title,
                                         source: pillar?.title,
+                                        url: subcontent?.url,
                                       })
                                     }
                                     className="font-semibold text-red-700 hover:underline"
@@ -414,7 +428,16 @@ function App() {
 
       {openModal && (
         <Modal>
-          <Assessment setOpenModal={() => setOpenModal(false)} />
+          <Assessment
+            setOpenModal={() => setOpenModal(false)}
+            requestDownload={requestDownload}
+          />
+        </Modal>
+      )}
+
+      {hasPendingDownload && (
+        <Modal>
+          <EmailGateModal onSubmit={submitDownloadEmail} />
         </Modal>
       )}
 
