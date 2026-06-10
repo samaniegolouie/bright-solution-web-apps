@@ -1,24 +1,8 @@
 import Button from "../components/button";
 import Section from "../components/container";
 import { AnimatePresence, motion } from "motion/react";
-import Assessment from "./assessment";
-import { useEffect, useState } from "react";
-import Modal from "../components/modal";
 
-export default function Hero({ onScrollToSection }) {
-  const [openModal, setOpenModal] = useState(false);
-  // Prevent user from scrolling in background while modal is visible
-  useEffect(() => {
-    if (openModal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [openModal]);
-
+export default function Hero({ onScrollToSection, onOpenAssessment }) {
   return (
     <div
       className="text-white flex flex-col justify-center items-center px-4 md:px-8 min-h-screen
@@ -75,7 +59,16 @@ export default function Hero({ onScrollToSection }) {
         >
           <Button
             className="h-12"
-            onClick={() => setOpenModal(true)}
+            onClick={() => {
+              if (import.meta.env.DEV) {
+                console.log(
+                  "[assessmentModal] red/video Take the assessment clicked"
+                );
+                console.log("[assessmentModal] calling setOpenModal(true)");
+              }
+
+              onOpenAssessment();
+            }}
             color="crimson"
           >
             Take the assessment
@@ -86,12 +79,6 @@ export default function Hero({ onScrollToSection }) {
           </Button>
         </motion.div>
       </AnimatePresence>
-
-      {openModal && (
-        <Modal>
-          <Assessment setOpenModal={() => setOpenModal(false)} />
-        </Modal>
-      )}
     </div>
   );
 }

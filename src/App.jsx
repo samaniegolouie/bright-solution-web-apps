@@ -119,8 +119,22 @@ function App() {
     };
   }, [openModal, hasPendingDownload]);
 
+  useEffect(() => {
+    if (import.meta.env.DEV) {
+      console.log("[assessmentModal] App openModal changed", openModal);
+    }
+  }, [openModal]);
+
   const scrollToSection = () => {
     sectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const openAssessmentModal = () => {
+    if (import.meta.env.DEV) {
+      console.log("[assessmentModal] setOpenModal(true) called");
+    }
+
+    setOpenModal(true);
   };
 
   const handleDownloadClick = (event, download) => {
@@ -139,7 +153,10 @@ function App() {
 
   return (
     <div>
-      <Hero onScrollToSection={scrollToSection} />
+      <Hero
+        onScrollToSection={scrollToSection}
+        onOpenAssessment={openAssessmentModal}
+      />
       <div>
         <Testimonials />
         <Filters
@@ -238,7 +255,7 @@ function App() {
                                     <div className="relative z-10 bottom-0 left-0 flex justify-center md:block md:-top-[120px] md:left-[220px]">
                                       <Button
                                         className="h-12 w-full max-w-xs md:w-auto"
-                                        onClick={() => setOpenModal(true)}
+                                        onClick={openAssessmentModal}
                                         color="crimson"
                                       >
                                         Take the assessment
