@@ -26,8 +26,12 @@ function App() {
   const [openModal, setOpenModal] = useState(false);
   const [expandedAccordion, setExpandedAccordion] = useState(false);
   const sectionRef = useRef(null);
-  const { hasPendingDownload, requestDownload, submitDownloadEmail } =
-    useDownloadGate();
+  const {
+    hasPendingDownload,
+    cancelPendingDownload,
+    requestDownload,
+    submitDownloadEmail,
+  } = useDownloadGate();
 
   // Accordion on click handler (kept for reference)
   // const handleAccordionClick = () => {
@@ -454,7 +458,10 @@ function App() {
 
       {hasPendingDownload && (
         <Modal>
-          <EmailGateModal onSubmit={submitDownloadEmail} />
+          <EmailGateModal
+            onClose={cancelPendingDownload}
+            onSubmit={submitDownloadEmail}
+          />
         </Modal>
       )}
 

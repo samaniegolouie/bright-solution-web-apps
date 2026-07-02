@@ -98,8 +98,13 @@ export function useDownloadGate() {
     continueDownload(download, savedEmail);
   };
 
+  const cancelPendingDownload = () => {
+    setPendingDownload(null);
+  };
+
   return {
     hasPendingDownload: Boolean(pendingDownload),
+    cancelPendingDownload,
     requestDownload,
     submitDownloadEmail,
   };

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "./button";
 import { getStoredDownloadEmail, isValidEmail } from "../downloadEmailStorage";
 
-export default function EmailGateModal({ onSubmit }) {
+export default function EmailGateModal({ onClose, onSubmit }) {
   const [email, setEmail] = useState(() => getStoredDownloadEmail());
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [error, setError] = useState("");
@@ -31,11 +31,20 @@ export default function EmailGateModal({ onSubmit }) {
 
   return (
     <div
-      className="bg-white p-6 rounded-xl shadow-xl w-full text-gray-700"
+      className="relative bg-white p-6 rounded-xl shadow-xl w-full text-gray-700"
       role="dialog"
       aria-modal="true"
       aria-labelledby="download-email-title"
     >
+      <button
+        type="button"
+        onClick={onClose}
+        className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-2xl leading-none text-gray-400 transition hover:bg-gray-100 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-900/20"
+        aria-label="Close email download modal"
+      >
+        &times;
+      </button>
+
       <h2 id="download-email-title" className="text-lg font-bold text-red-900">
         Enter your email to download
       </h2>
