@@ -75,8 +75,17 @@ export default function EmailGateModal({ onClose, onSubmit }) {
             required
           />
           <span>
-            I accept the Terms and Conditions and agree to continue with this
-            download.
+            I accept the{" "}
+            <a
+              href="https://www.brightsolutions.co/terms-and-conditions"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(event) => event.stopPropagation()}
+              className="font-semibold text-red-700 hover:underline"
+            >
+              Terms and Conditions
+            </a>{" "}
+            and agree to continue with this download.
           </span>
         </label>
 
