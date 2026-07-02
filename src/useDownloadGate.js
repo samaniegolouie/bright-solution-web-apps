@@ -2,7 +2,9 @@ import { useState } from "react";
 import { logDownloadClick } from "./downloadLogger";
 import {
   getStoredDownloadEmail,
+  hasAcceptedDownloadTerms,
   saveDownloadEmail,
+  saveDownloadTermsAccepted,
 } from "./downloadEmailStorage";
 
 function openDownload(url) {
@@ -49,14 +51,18 @@ export function useDownloadGate() {
     }
 
     const savedEmail = getStoredDownloadEmail();
+    const acceptedTerms = hasAcceptedDownloadTerms();
 
     if (import.meta.env.DEV) {
-      console.log("[downloadGate] email from localStorage", savedEmail);
+      console.log("[downloadGate] localStorage gate values", {
+        email: savedEmail,
+        acceptedTerms,
+      });
     }
 
-    if (savedEmail) {
+    if (savedEmail && acceptedTerms) {
       if (import.meta.env.DEV) {
-        console.log("[downloadGate] saved email found", savedEmail);
+        console.log("[downloadGate] saved email and terms found", savedEmail);
       }
 
       continueDownload(download, savedEmail);
@@ -64,24 +70,28 @@ export function useDownloadGate() {
     }
 
     if (import.meta.env.DEV) {
-      console.log("[downloadGate] saved email missing, showing modal");
+      console.log("[downloadGate] showing email and terms modal");
     }
 
     setPendingDownload(download);
   };
 
-  const submitDownloadEmail = (email) => {
+  const submitDownloadEmail = (email, acceptedTerms) => {
+    if (!acceptedTerms) return;
+
     const savedEmail = saveDownloadEmail(email);
+    const savedTerms = saveDownloadTermsAccepted();
 
     if (import.meta.env.DEV) {
       console.log("[downloadGate] modal submitted email", {
         email: savedEmail,
+        acceptedTerms: savedTerms,
         hasPendingDownload: Boolean(pendingDownload),
         pendingDownloadObject: pendingDownload,
       });
     }
 
-    if (!savedEmail || !pendingDownload) return;
+    if (!savedEmail || !savedTerms || !pendingDownload) return;
 
     const download = pendingDownload;
     setPendingDownload(null);

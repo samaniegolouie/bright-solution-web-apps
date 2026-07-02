@@ -1,4 +1,5 @@
 export const DOWNLOAD_USER_EMAIL_KEY = "download_user_email";
+export const DOWNLOAD_TERMS_ACCEPTED_KEY = "download_terms_accepted";
 
 export function getStoredDownloadEmail() {
   try {
@@ -18,6 +19,23 @@ export function saveDownloadEmail(email) {
   }
 
   return normalizedEmail;
+}
+
+export function hasAcceptedDownloadTerms() {
+  try {
+    return localStorage.getItem(DOWNLOAD_TERMS_ACCEPTED_KEY) === "true";
+  } catch {
+    return false;
+  }
+}
+
+export function saveDownloadTermsAccepted() {
+  try {
+    localStorage.setItem(DOWNLOAD_TERMS_ACCEPTED_KEY, "true");
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 export function isValidEmail(email) {

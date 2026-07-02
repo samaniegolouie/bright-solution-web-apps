@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Button from "./button";
-import { isValidEmail } from "../downloadEmailStorage";
+import { getStoredDownloadEmail, isValidEmail } from "../downloadEmailStorage";
 
 export default function EmailGateModal({ onSubmit }) {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => getStoredDownloadEmail());
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = (event) => {
@@ -14,13 +15,18 @@ export default function EmailGateModal({ onSubmit }) {
       return;
     }
 
+    if (!acceptedTerms) {
+      setError("Please accept the Terms and Conditions to continue.");
+      return;
+    }
+
     setError("");
 
     if (import.meta.env.DEV) {
       console.log("[downloadGate] email modal submit value", email);
     }
 
-    onSubmit(email);
+    onSubmit(email, acceptedTerms);
   };
 
   return (
@@ -49,6 +55,20 @@ export default function EmailGateModal({ onSubmit }) {
             autoFocus
             required
           />
+        </label>
+
+        <label className="flex items-start gap-3 rounded-lg border border-gray-200 p-3 text-sm text-gray-700">
+          <input
+            type="checkbox"
+            checked={acceptedTerms}
+            onChange={(event) => setAcceptedTerms(event.target.checked)}
+            className="mt-1 h-4 w-4 rounded border-gray-300 text-red-900 focus:ring-red-900"
+            required
+          />
+          <span>
+            I accept the Terms and Conditions and agree to continue with this
+            download.
+          </span>
         </label>
 
         {error && (
